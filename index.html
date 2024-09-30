@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lami's blog</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* Custom styles for the navbar */
+      .navbar-custom {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        padding: 0.25rem 1rem;
+        z-index: 1000;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+      }
+      .navbar-hide {
+        transform: translateY(-100%);
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      .nav-link {
+        color: #333;
+        font-family: "Jenna Sue", cursive;
+        font-size: 1.2rem;
+      }
+
+      .nav-link:hover {
+        color: #d78b3d;
+        font-size: 1.3rem;
+      }
+      .navbar-brand {
+        font-family: "Jenna Sue", cursive;
+        font-size: 1.5rem;
+      }
+      .carousel-item {
+        text-align: center;
+        padding: 20px;
+      }
+      .carousel-item img {
+        width: 70%;
+        height: auto;
+        max-height: 300px;
+        object-fit: cover;
+      }
+      .carousel-control-prev,
+      .carousel-control-next {
+        filter: invert(1);
+        width: 5%;
+      }
+      .carousel-control-prev-icon,
+      .carousel-control-next-icon {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        padding: 10px;
+      }
+      .carousel-control-prev:hover,
+      .carousel-control-next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+      .stacked-layout p {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      h4,
+      p,
+      ul {
+        font-size: 1.1rem;
+      }
+      .about-me {
+        position: fixed;
+        right: 20px;
+        top: 100px;
+        width: 250px;
+        padding: 15px;
+        background-color: rgba(255, 255, 255, 0.9);
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        text-align: center;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        opacity: 1;
+        visibility: visible;
+      }
+      .about-me.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #about {
+        margin-top: -10px; /* Adjust the value as needed */
+      }
+      .about-me img {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+      @media (min-width: 992px) {
+        .stacked-layout img {
+          width: 68%;
+          height: 290px;
+        }
+      }
+      .linkslider {
+        color: black;
+        text-shadow: 2px 2px 5px rgba(201, 123, 99, 0.2);
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+      .linkslider:hover {
+        color: #c97b63;
+      }
+      .btn-card {
+        color: white;
+        border: 1px solid;
+        font-weight: bold;
+        background-color: #ffd1b3;
+      }
+      .btn-card:hover {
+        color: #c97b63;
+        text-decoration: underline;
+      }
+      .h2blog {
+        font-family: "Jenna Sue", cursive;
+        text-shadow: 2px 2px 5px rgba(201, 123, 99, 0.2);
+        font-size: 2rem;
+      }
+      .h2blog:hover {
+        color: #c97b63;
+      }
+      section {
+        margin-top: 130px;
+      }
+      .custom-marginblog {
+        margin-top: -40px; /* Adjust the value as needed */
+      }
+      @media (max-width: 992px) {
+        .about-me {
+          display: none;
+        }
+      }
+      .footer {
+        background-color: whitesmoke;
+        padding: 20px;
+        text-align: center;
+        width: 100%;
+      }
+      .footer a {
+        color: #333;
+        text-decoration: none;
+        margin: 0 10px;
+        font-size: 24px;
+        display: inline-block;
+      }
+
+      .card {
+        height: 100%; /* Ensures that all cards are the same height */
+        display: flex;
+        flex-direction: column; /* Aligns content vertically */
+      }
+
+      .card-img-custom {
+        flex-grow: 1; /* Allows image to grow and fill the space */
+        width: 100%; /* Full width of the card */
+        object-fit: cover; /* Ensures the image covers the space without distortion */
+        height: 200px; /* Set a fixed height for the images */
+      }
+
+      /* Optional: Set a max-width if needed for uniformity */
+      .card {
+        max-width: 100%; /* Ensure cards don't exceed container width */
+      }
+      .about-me {
+        text-align: center; /* Center the content */
+      }
+
+      .social-icons {
+        margin-top: 10px; /* Space above icons */
+      }
+
+      .icon {
+        margin: 0 10px; /* Space between icons */
+        color: #0077b5; /* LinkedIn color */
+        font-size: 24px; /* Adjust icon size */
+        text-decoration: none; /* Remove underline */
+      }
+
+      .icon:hover {
+        color: #005582; /* Darker color on hover */
+      }
+      .wave {
+        font-size: 20px; /* Adjust size as needed */
+        display: inline-block; /* Allow for transformation */
+        animation: wave 1s infinite; /* Call the wave animation */
+      }
+
+      @keyframes wave {
+        0%,
+        20%,
+        40%,
+        60%,
+        80%,
+        100% {
+          transform: rotate(0deg); /* Original position */
+        }
+        10% {
+          transform: rotate(15deg); /* Slight wave */
+        }
+        30% {
+          transform: rotate(-10deg); /* Slight wave in the opposite direction */
+        }
+        50% {
+          transform: rotate(5deg); /* Return to a neutral position */
+        }
+        70% {
+          transform: rotate(10deg); /* Wave again */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top shadow">
+      <div class="container">
+        <a class="navbar-brand" href="#">Lami's blog.</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+          onclick="toggleNavbar()"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#blog">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <br />
+    <br />
+
+    <!-- Section with stacked image and text -->
+    <section id="home" class="mb-4 mt-5">
+      <div class="container mt-1">
+        <div class="d-flex flex-column align-items-center stacked-layout">
+          <img src="nyfwtheme.jpg" alt="NYFW" class="img-fluid mb-3" />
+          <p class="my-2">
+            New York Fashion Week (NYFW) is the ultimate celebration of fashion,
+            creativity, and style. It is a period to show whirlwind of style,
+            creativity, and excitement. Whether you're walking the runway or
+            watching from the sidelines, I am here to help you make the most of
+            every moment!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me block -->
+    <div class="about-me">
+      <img src="Lamidelinkedinprofile.jpg" alt="Profile Image" />
+      <h5>Olamide Soleye</h5>
+      <p>Web Designer | Blogger</p>
+      <p>
+        <span class="wave">👋</span> Hi readers! I’m thrilled to have you here!
+        Feel free to also engage with me on my socials!.
+      </p>
+
+      <div class="social-icons">
+        <!-- LinkedIn Icon -->
+        <a
+          href="https://www.linkedin.com/in/your-profile"
+          target="_blank"
+          class="icon"
+        >
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <!-- Mail Icon -->
+        <a href="mailto:your-email@example.com" class="icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </div>
+    </div>
+    <br />
+    <!-- Slider section -->
+    <div id="nyfwCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img id="slide1img" src="howtoattend.jpg" alt="NYFW Introduction" />
+          <div class="container align-items-center my-2 m-auto">
+            <h4>
+              <a
+                class="linkslider"
+                href="#insider-guide-nyfw"
+                id="insider-guide-link"
+                >An Insider's Guide to NYFW</a
+              >
+            </h4>
+            <p>
+              You’ve just walked into one of those exclusive rooftop parties...
+            </p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            id="slide2img"
+            src="what is nyfw.jpg"
+            alt="Getting tickets and picking shows"
+          />
+          <div class="container align-items-center my-2 m-auto">
+            <h4>
+              <a class="linkslider" href="#getting-tickets"
+                >Getting Tickets & Picking the Shows</a
+              >
+            </h4>
+            <p>Navigating the ticket scene for New York Fashion Week...</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img
+            id="slide3img"
+            src="shopping-slide-1.jpg"
+            alt="Dressing for the shows"
+          />
+          <div class="container align-items-center my-2 m-auto">
+            <h4>
+              <a class="linkslider" href="#dressing">Dressing for the Shows</a>
+            </h4>
+            <p>Start with something that speaks to your personal style...</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img id="slide4img" src="buzz.webp" alt="Invitation Tips" />
+          <div class="container align-items-center my-2 m-auto">
+            <h4>
+              <a class="linkslider" href="#invitation"
+                >How to Score an Invitation</a
+              >
+            </h4>
+            <p>Getting into NYFW may seem exclusive, but it's possible!</p>
+          </div>
+        </div>
+      </div>
+      <button
+        class="carousel-control-prev"
+        type="button"
+        data-bs-target="#nyfwCarousel"
+        data-bs-slide="prev"
+      >
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button
+        class="carousel-control-next"
+        type="button"
+        data-bs-target="#nyfwCarousel"
+        data-bs-slide="next"
+      >
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <br />
+
+    <!-- Content section -->
+    <section id="about">
+      <div class="container align-items-center my-2 m-auto">
+        <h3 id="insider-guide-nyfw">An Insider's Guide to NYFW</h3>
+        <p>
+          You’ve just walked into one of those exclusive rooftop parties that
+          everyone whispers about. The kind where the city skyline stretches out
+          like it’s posing just for you, and the champagne never seems to run
+          out.
+        </p>
+        <p>
+          <strong>First tip:</strong> Ditch the elevator and take the stairs.
+          Trust me, when you step onto the rooftop, the breathtaking view will
+          be worth it. But don’t just stick with your crew—this is where the
+          magic happens. A casual conversation over cocktails could spark your
+          next big opportunity.
+        </p>
+        <p>
+          <strong>Fashion Week is all about connections.</strong> Compliment
+          someone’s outfit (everyone’s bringing their A-game), and let the
+          conversation flow.
+        </p>
+      </div>
+
+      <div class="container align-items-center my-2 m-auto">
+        <h3 id="getting-tickets">Getting Tickets &amp; Picking the Shows</h3>
+        <p>
+          Navigating the NYFW ticket scene can feel like a strategic game, but
+          with the right approach, it's absolutely doable.
+        </p>
+        <ul>
+          <li>
+            Start by contacting PR agencies directly, explaining your interest
+            in attending. Even if you're new, mention relevant work or
+            connections.
+          </li>
+          <li>
+            Balance your time between must-see shows like
+            <strong>Marc Jacobs</strong> or <strong>Michael Kors</strong>, and
+            fresh, emerging designers who bring a vibrant energy.
+          </li>
+          <li>
+            Always <strong>RSVP</strong> (even if unsure) and follow up closer
+            to the date to boost your chances.
+          </li>
+        </ul>
+      </div>
+
+      <div class="container align-items-center my-2 m-auto">
+        <h3 id="dressing">Dressing for the Shows</h3>
+        <p>
+          Fashion Week is your playground, so don’t be afraid to push
+          boundaries. Start with something that reflects
+          <strong>your personal style</strong>—a bold blazer, unique handbag, or
+          vintage dress. Then, add a pop of something unexpected.
+        </p>
+        <p>
+          But remember, <strong>comfort is key.</strong> For those running
+          between venues, chic yet comfortable shoes are a must.
+          <strong>Confidence is your best accessory</strong>—wear it like you
+          own the place.
+        </p>
+      </div>
+
+      <div id="invitation" class="container align-items-center my-2 m-auto">
+        <h3 id="invitation">How to Score an Invitation</h3>
+        <p>
+          Getting into NYFW may seem exclusive, but it’s possible! Here’s how:
+        </p>
+        <ul>
+          <li>
+            Apply for <strong>press passes</strong> or attend public events that
+            don’t require invites.
+          </li>
+          <li>
+            Leverage <strong>social media</strong> to network with influencers
+            and professionals.
+          </li>
+          <li>
+            Smaller, off-schedule shows can be just as impactful and easier to
+            attend.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="blog">
+      <div class="container mt-2 custom-marginblog">
+        <h2 class="h2blog m-auto text-center">Recent Blogs</h2>
+        <br />
+        <div class="row">
+          <!-- Card 1 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <img
+                src="Finding-Myself-on-the-Interior-Journey_SOURCE_pixabay.jpg"
+                class="card-img-top"
+                alt="Card Image 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Seeing Myself Through God's Eyes: A Journey of Growth and
+                  Self-Discovery
+                </h5>
+                <p class="card-text">
+                  In a world filled with expectations and pressures, it’s easy
+                  to lose sight of who we truly are. This blog is a reflection
+                  on learning to see myself through God's lens—embracing my
+                  worth, identity, and purpose as He sees me.
+                </p>
+                <a href="#" class="btn btn-card">Read More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <img
+                src="fashion-and-you.jpg"
+                class="card-img-top card-img-custom"
+                alt="Card Image 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Defining My Style: The Evolution of My Fashion Sense
+                </h5>
+                <p class="card-text">
+                  Fashion is more than just clothing—it’s a reflection of
+                  identity and personal expression. In this blog, I’ll take you
+                  through the journey of discovering my unique sense of style.
+                </p>
+                <a href="#" class="btn btn-card">Read More</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col-lg-4 col-md-6 mb-4">
+            <div class="card">
+              <img
+                src="musicc.jpg"
+                class="card-img-top card-img-custom"
+                alt="Card Image 3"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Harmonizing Life: How Music Helped Me Find My Rhythm
+                </h5>
+                <p class="card-text">
+                  Music has always been more than just sound—it’s been my guide,
+                  my solace, and my passion. In this blog, I explore the ways
+                  music has shaped my personal journey, teaching me lessons in
+                  discipline, creativity, and self-expression.
+                </p>
+                <a href="#" class="btn btn-card">Read More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="contact" class="footer">
+      <div class="footer-content">
+        <br />
+        <p
+          style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+          "
+        >
+          Thanks for visiting! Hope you found something you love.
+          <br />
+
+          Feel free to connect with me on: LinkedIn Instagram Twitter
+        </p>
+        <p>&copy; 2024 Your Blog Name. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- jQuery and Bootstrap JS -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Function to toggle navbar
+      function toggleNavbar() {
+        const navbarCollapse = document.getElementById("navbarNav");
+        const bootstrapCollapse = new bootstrap.Collapse(navbarCollapse, {
+          toggle: true,
+        });
+      }
+
+      // Select all nav links
+      const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+      // Function to close the navbar on link click
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          const navbarCollapse = document.getElementById("navbarNav");
+          // Close the navbar if it's expanded
+          if (navbarCollapse.classList.contains("show")) {
+            const bootstrapCollapse = new bootstrap.Collapse(navbarCollapse);
+            bootstrapCollapse.hide();
+          }
+        });
+      });
+    </script>
+    <script>
+      // Function to toggle navbar visibility
+      let lastScrollTop = 0;
+      const navbar = document.querySelector(".navbar-custom");
+
+      window.addEventListener("scroll", function () {
+        let scrollTop =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollTop > lastScrollTop) {
+          navbar.classList.add("navbar-hide");
+        } else {
+          navbar.classList.remove("navbar-hide");
+        }
+        lastScrollTop = scrollTop;
+      });
+
+      // Function to hide the navbar when a specific link is clicked
+      const insiderGuideLink = document.getElementById("insider-guide-link");
+      insiderGuideLink.addEventListener("click", () => {
+        navbar.classList.add("navbar-hide");
+      });
+    </script>
+
+    <script>
+      // Get the about-me block
+      const aboutMeBlock = document.querySelector(".about-me");
+
+      // Track the last scroll position
+      let lastScrollPosition = 0;
+
+      // Initially hide the about-me block
+      aboutMeBlock.style.opacity = "0";
+      aboutMeBlock.style.visibility = "hidden";
+
+      // Listen for scroll events
+      window.addEventListener("scroll", () => {
+        const currentScrollPosition = window.scrollY;
+
+        // Check if scrolling down
+        if (currentScrollPosition > lastScrollPosition) {
+          // Hide the about-me block when scrolling down
+          aboutMeBlock.style.opacity = "0";
+          aboutMeBlock.style.visibility = "hidden";
+        } else {
+          // Show the about-me block when scrolling up, only if at the top
+          if (currentScrollPosition === 0) {
+            aboutMeBlock.style.opacity = "1";
+            aboutMeBlock.style.visibility = "visible";
+          } else {
+            // Keep it hidden if not at the top
+            aboutMeBlock.style.opacity = "0";
+            aboutMeBlock.style.visibility = "hidden";
+          }
+        }
+
+        // Update the last scroll position
+        lastScrollPosition = currentScrollPosition;
+      });
+    </script>
+  </body>
+</html>
